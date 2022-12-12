@@ -5,7 +5,7 @@ import User from "../../models/users";
 export default async (ctx: Context) => {
 	const { id } = ctx.params as { id: string };
 
-	const user = await User.findById(id);
+	const user = await User.findById(id).populate("contacts", "-contacts");
 
 	if (!user) {
 		return ctx.throw(404, "Usuário não encontrado");
