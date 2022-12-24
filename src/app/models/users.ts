@@ -1,16 +1,9 @@
 import bcrypt from "bcrypt";
 import { Schema, model, Model } from "mongoose";
 
-interface IUser {
-	_id: Schema.Types.ObjectId;
-	name: string;
-	customId: string;
-	password: string;
-	contacts: Schema.Types.ObjectId[];
-}
-
 interface IUserModel extends Model<IUser> {
 	findByName(name: string): Promise<IUser>;
+	findByCustomId(customId: string): Promise<IUser>;
 }
 
 const schema = new Schema<IUser>(
@@ -42,6 +35,10 @@ schema.pre("save", function (next) {
 
 schema.static("findByName", function (name: string) {
 	return this.findOne({ name });
+});
+
+schema.static("findByCustomId", async function (customId: string) {
+	return this.findOne({ customId });
 });
 
 const User = model<IUser, IUserModel>("user", schema);

@@ -1,6 +1,6 @@
 import { Context, Next } from "koa";
 
-export default (ctx: Context, next: Next) => {
+export default async (ctx: Context, next: Next) => {
 	return next().catch((err) => {
 		const { statusCode, message, ...options } = err;
 
