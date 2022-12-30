@@ -1,3 +1,4 @@
+import cors from "@koa/cors";
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 
@@ -10,6 +11,7 @@ const app = new Koa();
 
 app.use(errorHandler);
 app.use(bodyParser());
+app.use(cors());
 app.use(router.routes());
 
 const PORT = 3333;
